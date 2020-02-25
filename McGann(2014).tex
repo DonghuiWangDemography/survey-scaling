@@ -1,0 +1,102 @@
+
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{textgreek}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{booktabs}
+\usepackage{booktabs,caption}
+
+\usepackage{xcolor}
+\usepackage{sectsty}
+\definecolor{purdw}{rgb}{0.67,0.15,0.31}
+\sectionfont{\color{purdw}}  % sets colour of sections
+
+%\usepackage{floatrow}
+\usepackage[a4paper, total={6in, 8in}]{geometry}
+
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+}
+
+
+
+\title{Aggregate IRT to Estimate Public Opinion  \\
+(McGann 2014, 2019)}
+\date{\today}
+%\author{Donghui Wang}
+
+\begin{document}
+
+\maketitle
+\section{Binary scale (McGann 2014)}
+\subsection{Model set up}
+\begin{enumerate}
+    \item Denote individual i's latent attitude at year y is a random variable  $x_{iy}$ that follows normal distribution with mean $\mu_y$ and standard deviation $\sigma_y$. 
+    
+    \item Denote number of questions being asked is  q where $q \in (1, Q)$  \\
+     These q questionnaires differentiate each other in two ways: 
+    \subitem (1) how difficult the question is to answer $\lambda_q$ (difficult parameter),   
+    \subitem (2) how well the question discriminate  $\alpha_q$ (discrimination parameter)
+    
+    \item There are four sets of parameters we need to estimate 
+        \subitem (1) The central tendency of population attitude.
+                     Described by  mean $\mu_y$ and standard deviation $\sigm_y$. 
+        \subitem (2) The survey attributes. Described by \textlambda\textsubscript{q} and \textalpha\textsubscript{q}
+
+    
+        \item Denote the probability of individual i give correct answer to question q in year y is $e_{iyq}$, which can be expressed as a function of question characteristics and individual i's latent trait. We have a individual model: 
+        
+     \begin{equation}
+        e_{iyq} = \Phi(x_iy,\lambda_q,\alpha_q)
+    \end{equation}
+%     \footnotesize DW: why normal not logistic ? 
+    \item Integrated over the entire population we have 
+    
+    \begin{equation}
+        m_{yq} = \int_{-\infty}^{\infty}
+        \Phi(x,\lambda_q,\alpha_q)\phi(x,\mu_y, \sigma_y)dx
+    \end{equation}
+    
+    Integrating, we get 
+    \begin{equation}
+         m_{yq} = \Phi(\mu_y,\lambda_q, \sqrt{\alpha _q^2 + \sigma_y^2  }  )
+    \end{equation}
+
+    where $m_{yq}$ is the expected probability of a random respondent giving a correct answer to question q in year y
+ \end{enumerate}
+   
+\subsection{Model Estimation}
+    \begin{enumerate}
+        \item Model the total number of correct response to a question using beta-binomial distribution 
+        
+    \end{enumerate}
+
+\section{Ordinal scale (McGann 2019)}
+
+\subsection{Model set up}
+    \begin{enumerate}
+        \item For the case of ordinal scale, replace difficulty parameter $\lambda_q$ with a set of parameters  $\lambda_{qg}$,  where g denotes the response level.  
+        \item The cumulative probability of answering at least at certain level can be modelled in the same way as binary question
+    \end{enumerate}
+
+
+\section{References}
+
+\begin{itemize}
+    \item McGann, Anthony J. 2014. “Estimating the Political Center from Aggregate Data: An Item Response Theory Alternative to the Stimson Dyad Ratios Algorithm.” Political Analysis 22 (1): 115–29.  
+    \item McGann, Anthony, Sebastian Dellepiane-Avellaneda, and John Bartle. 2019. “Parallel Lines? Policy Mood in a Plurinational Democracy.” Electoral Studies 58 (June 2018): 48–57. 
+\end{itemize}
+
+
+\section{Model the number of correct responses}
+\begin{itemize}
+    \item  The proportion of correct response to questionnaire j in year y is modeled as 
+    
+\end{itemize}
+
+\end{document}

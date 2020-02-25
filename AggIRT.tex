@@ -1,0 +1,84 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{textgreek}
+\usepackage{amsmath}
+
+\title{Model Public Opinion}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{Model set up : binary response}
+\begin{enumerate}
+    \item Individual i's latent attitude toward China in  year $y$ is a random variable  $x_{iy}$ that follows $x_{iy} \sim \phi(\mu_y ,\sigma_y )$. 
+    
+    \item We have q survey questionnaires that asked individuals’ attitude toward China where  $q \in (1,..., Q)$ (in our case, Q=11).
+    
+    These q questionnaires differentiate each other in two ways 
+    \subitem (1) the threshold $\lambda_q$, over which an individual would answer ``favorable'',   
+    \subitem (2) how well the question discriminate  \textalpha\textsubscript{q} (discrimination parameter)
+    
+    \item Denote that an individual has two response type, 0 and 1, where 1= positive attitude and 0 = negative attitude.  The probability that an individual give a positive answer to question q in year y is a function of question characteristics and the individual's latent attitude:
+    
+    \begin{equation}
+        p(1| x_{iy}) = \Phi(x_{iy}, \lambda_q, \alpha_q)
+    \end{equation}
+    
+    \item Integral over x for survey margin, we have    
+    \begin{equation}
+        P_{yq}(1) = P(1|\mu_y, \sigma_y, \lambda_q, \alpha_q) =\int_{-\infty}^{+\infty} p(x)p(1|x_{iy}) dx
+              =  \int_{-\infty}^{+\infty}
+        \phi(x,\mu_y, \sigma_y)\Phi(x,\lambda_q,\alpha_q)dx
+    \end{equation}
+    
+    \item Further simplify, we have (based on McGann (2014))
+        \begin{equation}
+             Pr(1) = \Phi(\mu_y,\lambda_q, \sqrt{\alpha _q^2 + \sigma_y^2})
+    \end{equation}
+    
+
+       \item The likelihood function is 
+        \begin{align}
+         & L(\mu_y, \sigma_y, \lambda_q,\alpha _q)=  \prod^{N^+_{qy}} Pr(1) \prod^{N^-_{qy}} Pr(0)  \\
+         &  =  \left( \Phi(\mu_y,\lambda_q, \sqrt{\alpha _q^2 + \sigma_y^2}) \right)^{N^+_{qy}} \left( (1-\Phi(\mu_y,\lambda_q, \sqrt{\alpha _q^2 + \sigma_y^2})) \right)^{N^-_{qy}}  
+        \end{align}
+   Where $N^+_{qy}$ are the number of positive attitude at year y for questionnaire q, and $N^-_{qy}$ is the number of negative attitude at year y for questionnaire q     
+   
+   \item Taking logarithm on both side we have 
+        \begin{align}
+         & \ln L(\mu_y, \sigma_y, \lambda_q,\alpha_q)=    \\
+         &  =  {N^+_{qy}} \ln\Phi(\mu_y,\lambda_q, \sqrt{\alpha _q^2 + \sigma_y^2})) + {N^-__{qy}} \ln(1-\Phi(\mu_y,\lambda_q, \sqrt{\alpha _q^2 + \sigma_y^2}))  
+        \end{align}
+        
+    \item The total objective function
+    
+        \begin{align}
+         \ln L = & \sum_{y,q} \ln L(\mu_y, \sigma_y, \lambda_q,\alpha_q)
+        \end{align}    
+        
+    \item Further simplify, we will infer the parameters by maximizing the joint likelihood w.r.t. the parameters.
+    
+    \begin{align}
+        \mu_\cdot, \sigma_\cdot, \lambda_\cdot,\alpha_\cdot = \arg\max_{\mu_\cdot, \sigma_\cdot, \lambda_\cdot,\alpha_\cdot} \sum_{q,y} \ln L(\mu_y, \sigma_y, \lambda_q,\alpha_q)
+    \end{align}
+    
+\item Or, we will infer the parameters by maximizing the posterior probability w.r.t. the parameters, i.e.,
+
+    \begin{align}
+        \mu_\cdot, \sigma_\cdot, \lambda_\cdot,\alpha_\cdot =  \arg\max_{\mu_\cdot, \sigma_\cdot, \lambda_\cdot,\alpha_\cdot} 
+        \left( \sum_{q,y} \ln L(\mu_y, \sigma_y, \lambda_q,\alpha_q)  \\
+        + \sum_y \ln P(\mu_y) + \sum_y \ln P(\sigma_y) + \sum_q \ln P(\lambda_q) + \sum_q \ln P(\alpha_q) \right)
+    \end{align}
+\item To further simplify the parameter space for reliable inference with small data, we may force $\lambda_q = 0$, for any q.
+
+\section{Extend to ordinal scale}
+    \begin{enumerate}
+        \item For the case of ordinal scale, replace difficulty parameter $\lambda_q$ with a set of parameters  $\lambda_{qg}$,  where g denotes the response level.  
+        \item The cumulative probability of answering at least at certain level can be modelled in the same way as binary question.
+    \end{enumerate}
+
+
+\end{enumerate}
+\end{document}

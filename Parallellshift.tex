@@ -1,0 +1,144 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{textgreek}
+\usepackage{amsmath}
+\usepackage{textgreek}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{booktabs}
+\usepackage{booktabs,caption}
+
+\usepackage{xcolor}
+\usepackage{sectsty}
+\definecolor{purdw}{rgb}{0.67,0.15,0.31}
+\sectionfont{\color{purdw}}  % sets colour of sections
+
+%\usepackage{floatrow}
+\usepackage[a4paper, total={6in, 8in}]{geometry}
+
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+}
+
+
+
+
+\title{Model Public Opinion \\
+       (with parallel shift assumption)}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{The basic model}
+\begin{enumerate}
+    \item Individual i's latent attitude toward China in  year $t$ is a random variable  $y^*_{it}$ , we have
+    \begin{align}
+     y^*_{it}   \sim \phi(\mu_t ,\sigma_t)  
+    \end{align}
+    
+    % \item The observed variations of attitude toward China  can be decomposed into two parts, the real  public opinion change $\delta_t$  and variations due to measurement error $\epsilon_t$. 
+    %  \begin{align}
+    %   \mu_t =  \delta_t + \epsilon_t 
+    % \end{align}
+    
+    % Our goal is to minimize measurement errors using pooled multiple surveys. 
+    
+    \item We have q likert-type survey questionnaires on individuals’ attitude toward China,  where  $q \in (1,..., Q)$ (in our case, Q=11). We also have 
+    \begin{itemize}
+    \item For each questionnaire q, there are k ordered response categories $k^q$ , where $k^q=1...K^q$
+    \item  The length of a given survey q (the number of running years) is $l^q$, where $ 2 \leq l^q \leq T$.
+      \end{itemize}  
+      
+    \item The relationships between individual's latent attitude and the observed survey response $y_{it}$ can be written as a mapping function where
+    \begin{align}\label{eq3}
+       y_{it} = k^{q}, \Leftrightarrow	 \tau^{k-1,q} \leq  y^*_{it}  \leq \tau^{k,q}, \tau^{1,q} = - \infty,  \tau^{K,q} = \infty
+    \end{align}
+      where  $\tau^{k,q}$ denotes survey-specific cut points. 
+  \end{enumerate}
+  
+ 
+\section{Overlapping years}
+ The observed changes in survey marginals can be decomposed of two parts, the actual public opinion change, and reporting heterogeneity among different survey organizations. Our goal is to minimize reporting heterogeneity.  \\
+ 
+ 
+ The key to separate reporting heterogeneity from the actual attitude change is to compare response patterns of different survey questionnaires at the  years when surveys overlap.  Different surveys measure the same latent attitude in the same year,  Therefore, the observed variations of survey marginals in the same year can only came from reporting heterogeneity. By comparing  the cumulative distributions of the survey responses in the same year, we can identify the extent of reporting heterogneiety in different survey questionnaires. \\
+ 
+ The rationale is comparable to the idea of anchoring vignettes, where researchers ask respondents to  evaluate hypothetical situations or people in addition to the assessment of their own situation. Doing so allows researchers to anchor different response scales onto a common scale.  In our case, we do not have separate vignettes questionnaires to anchor individuals' response scale, we utilize the overlapping years to anchor response scales.  \\
+
+ Denote the cut-off points that embodied in the observed survey categories  to be $ g^{k,q,t}$, we have 
+ \\
+      \begin{align}\label{eq3}
+          g^{k,q,t}=\tau^{k,q}+\delta^t
+      \end{align}
+     
+
+ Denote that the number of overlapping years among q surveys are S. In this section we discuss the scenario where  S = 0, 1,and  $S\geq  2$ 
+
+\subsection{The case of no overlapping year}
+ \begin{enumerate}
+    \item Start with the case of S=0, i.e. no overlapping years among surveys. We could estimate a fully saturated model (but there is no relationships between  surveys ).  For each survey q, the number of parameters we need to estimate are $(K^q - 1)\times (l^q -1)$. We could also easily run out of degrees of freedom. 
+\end{enumerate}
+
+\subsection{The case of one overlapping year}
+In the case of one overlapping year, we can conduct a scaling procedure by comparing the cumulative distributions of different surveys in the same overlapping year.  \\
+
+For the purpose of illustration, assume there are two survey questionnaires, $q$ and $q^'$, each has length of $l^q$ and $l^q^'$, respectively. \\
+
+With only one overlapping year, we can conduct response scaling, i.e. project the response scores in both surveys onto a common secondary rating scale based on the responses’ cumulative distribution. \\
+
+Noted that for each survey,  we still have  $(K^q-1)\times (l^q-1)$ parameters to estimate. \\
+
+
+\subsection{The case of two or more overlapping years}
+
+  \begin{enumerate}
+      \item In the case of S = 2, denote the two surveys $q$ and $q^'$ have two overlapping years $s_1$ and $s_2$. We have  
+    \begin{align}\label{eq4}
+        g^{k,q,s_1} =  \tau^{k,q}  + \delta^{s_1}   \\
+        g^{k,q,s_2} =  \tau^{k,q} +  \delta^{s_2}
+    \end{align}
+     
+     \item  
+     Equally for $q'$, we  have 
+     \begin{align}\label{eq4}
+        g^{k,q',s_1} =  \tau^{k,q'}  + \delta^{s_1}   \\
+        g^{k,q',s_2} =  \tau^{k,q'} +  \delta^{s_2}
+    \end{align}
+    
+
+ We have four unknowns to solve in  Eq(4)- Eq(7) : $\tau^{k,q},\tau^{k,q'}$ and $\delta^{s_1},\delta^{s_2} $ 
+ 
+
+      \item By extension, the total number of parameters we need to estimate under the case of S overlapping year ($S \geq	 2 $) for these two survey  $q$ and $q^'$ is  $ (K^q+(l^q - 1)) + (K^q'+(l^{q'} -1)) -S $
+  \end{enumerate}
+  
+%\section{Non-parametric Approach}
+
+\section{Model Estimation}
+\begin{enumerate}
+    \item For each survey, the total number of running years can be decomposed into two segments, the years when the survey overlaps  with other surveys $s$, and the years that do not overlap with other surveys $1-s$.  The likelihood function therefore also has two components: 
+    \begin{align}
+    L=  \prod^{l-s}\prod^{q}\prod^{k}P^N(y_{il}^q = k) \prod^s\prod^q\prod^{k}P^N(y_{is}^q = k)
+    \end{align}
+ Noted that $L$ is a function of $\mu$, $\sigma$, $\tau$ and $\delta$, i.e.
+ \begin{align}
+     f(\mu_1,\mu_2... \mu_T; \sigma_1,\sigma_2...\sigma_T;\tau^{1,q},\tau^{2,q}...\tau^{K,q})  
+\end{align}
+
+
+
+%   \item We will infer the parameters by maximizing the joint likelihood w.r.t. the parameters
+%   \begin{align}
+%     ln  f(\mu_1,\mu_2... \mu_T; \sigma_1,\sigma_2...\sigma_T;\tau_1^1,\tau_1^2...\tau_1^K;\delta_1,\delta_2... \delta_{T-S})  = \\
+%     \sum^t\sum^q\sum^k ln (\Phi(\tau^{k-1,q,t}) - \Phi(\tau^{k,q,t}))
+%   \end{align}
+  
+\end{enumerate}
+
+\end{document}
